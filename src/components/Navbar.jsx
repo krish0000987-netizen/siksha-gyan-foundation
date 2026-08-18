@@ -180,21 +180,6 @@ export default function Navbar({ activeView, setActiveView, onOpenSearch, onOpen
             ))}
           </nav>
 
-          {/* Action CTAs - Transfers to WhatsApp */}
-          <div className="hidden sm:flex items-center space-x-3 flex-shrink-0">
-            <a
-              href={getWhatsAppDonationLink("Child Education")}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-xs xl:text-sm font-bold rounded-xl group bg-gradient-to-br from-amber-500 to-amber-600 text-white shadow-md shadow-amber-500/20 hover:scale-105 active:scale-95 transition-all duration-200"
-            >
-              <span className="relative px-3.5 xl:px-4 py-2 transition-all ease-in duration-75 bg-amber-500 text-white rounded-[10px] group-hover:bg-amber-600 font-bold flex items-center space-x-2">
-                <Heart className="w-4 h-4 fill-white text-white" />
-                <span>Donate for Child Ed</span>
-              </span>
-            </a>
-          </div>
-
           {/* Mobile Menu Button */}
           <div className="flex lg:hidden items-center space-x-2">
             <button
@@ -239,17 +224,6 @@ export default function Navbar({ activeView, setActiveView, onOpenSearch, onOpen
                 )}
               </div>
             ))}
-            <div className="pt-4">
-              <a
-                href={getWhatsAppDonationLink("Child Education")}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full py-3 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-xl shadow-md flex justify-center items-center space-x-2"
-              >
-                <Heart className="w-4 h-4 fill-white text-white" />
-                <span>Donate for Child Education (WhatsApp)</span>
-              </a>
-            </div>
           </div>
         )}
       </header>
