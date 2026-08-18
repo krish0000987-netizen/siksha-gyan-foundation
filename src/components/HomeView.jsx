@@ -20,10 +20,10 @@ export default function HomeView({ onNavigate, onOpenSearch, onOpenDonate, onOpe
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             
             <div className="lg:col-span-5 space-y-4">
-              <span className="px-3 py-1 rounded-full bg-amber-100 border border-amber-300 text-amber-900 text-xs font-extrabold uppercase tracking-widest">
+              <div className="inline-block px-3 py-1 rounded-full bg-amber-100 border border-amber-300 text-amber-900 text-[10px] sm:text-xs font-extrabold uppercase tracking-widest">
                 Established 2020 • NGO Society & Trust
-              </span>
-              <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+              </div>
+              <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
                 Our Central Purpose & Mandate
               </h2>
               <p className="text-slate-700 text-sm leading-relaxed font-normal">
@@ -214,9 +214,9 @@ export default function HomeView({ onNavigate, onOpenSearch, onOpenDonate, onOpe
         <div className="bg-slate-50 border border-slate-200 p-8 sm:p-10 rounded-3xl grid grid-cols-1 lg:grid-cols-3 gap-6 items-center shadow-sm">
           
           <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3">
-            <span className="px-3 py-1 rounded-full bg-amber-100 text-amber-900 text-xs font-bold uppercase tracking-wider">
+            <div className="inline-block px-3 py-1 rounded-full bg-amber-100 text-amber-900 text-xs font-bold uppercase tracking-wider">
               Interactive Assessment
-            </span>
+            </div>
             <h4 className="text-xl font-extrabold text-slate-900">Design Aptitude Simulator</h4>
             <p className="text-xs text-slate-600">
               Are you or your ward interested in creative careers? Take our 3-question visual assessment sample for NID, NIFT & UCEED.
@@ -230,9 +230,9 @@ export default function HomeView({ onNavigate, onOpenSearch, onOpenDonate, onOpe
           </div>
 
           <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3">
-            <span className="px-3 py-1 rounded-full bg-blue-100 text-blue-900 text-xs font-bold uppercase tracking-wider">
+            <div className="inline-block px-3 py-1 rounded-full bg-blue-100 text-blue-900 text-xs font-bold uppercase tracking-wider">
               Corporate CSR
-            </span>
+            </div>
             <h4 className="text-xl font-extrabold text-slate-900">CSR Impact Estimator</h4>
             <p className="text-xs text-slate-600">
               Corporate heads can calculate beneficiary impact, deliverables, and 80G compliant outcomes for budgets from ₹2L to ₹25L.
@@ -246,9 +246,9 @@ export default function HomeView({ onNavigate, onOpenSearch, onOpenDonate, onOpe
           </div>
 
           <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3">
-            <span className="px-3 py-1 rounded-full bg-rose-100 text-rose-900 text-xs font-bold uppercase tracking-wider">
+            <div className="inline-block px-3 py-1 rounded-full bg-rose-100 text-rose-900 text-xs font-bold uppercase tracking-wider">
               Child Education
-            </span>
+            </div>
             <h4 className="text-xl font-extrabold text-slate-900">Donate for Child Education</h4>
             <p className="text-xs text-slate-600">
               Sponsor books, digital tablets, and school supplies for underprivileged children in Maharashtra directly via WhatsApp.
