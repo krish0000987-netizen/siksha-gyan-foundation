@@ -70,65 +70,47 @@ export default function HeroSlider({ onNavigate, onOpenDonate }) {
           </div>
         </div>
 
-        {/* Highlighted Text Card (NOT in dark image background) */}
-        <div className="bg-white border-2 border-amber-400/80 shadow-xl rounded-2xl p-4 space-y-2.5 text-slate-900 relative">
+        {/* Ultra Minimal White Text Card */}
+        <div className="bg-white border border-amber-300 shadow-md rounded-2xl p-3.5 space-y-2 text-slate-900">
           
-          {/* Minimal Highlighted Headline */}
-          <div className="space-y-1">
-            <h2 className="text-lg font-black text-slate-950 leading-tight">
+          {/* Header Row: Title & Category Badge */}
+          <div className="flex items-start justify-between gap-2">
+            <h2 className="text-base font-extrabold text-slate-950 leading-snug">
               {slide.mobileTitle || slide.title}
             </h2>
-            {slide.highlightText && (
-              <span className="inline-block bg-amber-100 text-amber-900 border border-amber-300 font-extrabold text-[11px] px-2 py-0.5 rounded-md">
-                ✨ Highlight: {slide.highlightText}
-              </span>
-            )}
+            <span className="text-[10px] font-bold text-amber-900 bg-amber-100 px-2 py-0.5 rounded-md border border-amber-200 flex-shrink-0">
+              {slide.badge}
+            </span>
           </div>
 
-          {/* Minimal 1-line Subtitle */}
-          <p className="text-xs text-slate-700 font-medium leading-relaxed bg-slate-50 p-2.5 rounded-xl border border-slate-200">
+          {/* Minimal Subtitle Text */}
+          <p className="text-xs text-slate-600 font-medium leading-normal">
             {slide.mobileSubtitle || slide.subtitle}
           </p>
 
-          {/* Compact CTA Buttons */}
-          <div className="grid grid-cols-2 gap-2 pt-1">
+          {/* Single Clean Action Button */}
+          <div className="pt-1">
             {slide.ctaTarget === 'donate' ? (
               <a
                 href={getWhatsAppDonationLink("Child Education")}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="py-2.5 px-3 bg-amber-500 hover:bg-amber-400 active:bg-amber-600 text-slate-950 font-black rounded-xl text-xs flex items-center justify-center space-x-1 shadow-md text-center"
+                className="w-full py-2.5 px-4 bg-amber-500 hover:bg-amber-400 active:bg-amber-600 text-slate-950 font-bold rounded-xl text-xs flex items-center justify-center space-x-1.5 shadow-sm text-center"
               >
-                <span>Donate</span>
-                <ArrowRight className="w-3 h-3" />
+                <span>{slide.ctaText}</span>
+                <ArrowRight className="w-3.5 h-3.5" />
               </a>
             ) : (
               <button
                 onClick={() => onNavigate(slide.ctaTarget)}
-                className="py-2.5 px-3 bg-amber-500 hover:bg-amber-400 active:bg-amber-600 text-slate-950 font-black rounded-xl text-xs flex items-center justify-center space-x-1 shadow-md text-center"
+                className="w-full py-2.5 px-4 bg-amber-500 hover:bg-amber-400 active:bg-amber-600 text-slate-950 font-bold rounded-xl text-xs flex items-center justify-center space-x-1.5 shadow-sm text-center"
               >
                 <span>{slide.ctaText}</span>
-                <ArrowRight className="w-3 h-3" />
+                <ArrowRight className="w-3.5 h-3.5" />
               </button>
             )}
-
-            <a
-              href={getWhatsAppDonationLink("Child Education")}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="py-2.5 px-3 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-xl text-xs flex items-center justify-center space-x-1 text-center"
-            >
-              <Heart className="w-3 h-3 text-amber-400 fill-amber-400" />
-              <span>Child Ed</span>
-            </a>
           </div>
 
-          {/* Minimal Mandate */}
-          <div className="pt-2 flex items-center justify-around text-[10px] font-bold text-slate-600 border-t border-slate-100">
-            <span className="text-amber-700">• Unreached</span>
-            <span className="text-amber-700">• Uncared</span>
-            <span className="text-amber-700">• Unattended</span>
-          </div>
         </div>
       </div>
 
