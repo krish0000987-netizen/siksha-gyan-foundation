@@ -68,6 +68,20 @@ export default function Navbar({ activeView, setActiveView, onOpenSearch, onOpen
     { id: 'contact', label: 'Contact Us' }
   ];
 
+  const [expandedMobileItems, setExpandedMobileItems] = useState({
+    about: false,
+    programs: false,
+    csr: false,
+    activities: false
+  });
+
+  const toggleMobileExpand = (itemId) => {
+    setExpandedMobileItems(prev => ({
+      ...prev,
+      [itemId]: !prev[itemId]
+    }));
+  };
+
   const handleNavClick = (viewId, subId = null) => {
     setActiveView(subId || viewId);
     setMobileMenuOpen(false);
@@ -129,11 +143,11 @@ export default function Navbar({ activeView, setActiveView, onOpenSearch, onOpen
               alt="Shiksha Gyan Foundation Logo Emblem" 
               className="h-10 sm:h-12 w-auto object-contain group-hover:scale-105 transition-transform"
             />
-            <div className="flex flex-col justify-center">
-              <span className="text-sm sm:text-lg font-black tracking-tight text-red-700 font-serif leading-none group-hover:text-red-800 transition">
+            <div className="flex flex-col justify-center max-w-[150px] xs:max-w-none">
+              <span className="text-[11px] xs:text-sm sm:text-lg font-black tracking-tight text-red-700 font-serif leading-none group-hover:text-red-800 transition truncate xs:whitespace-normal">
                 SHIKSHA GYAN FOUNDATION
               </span>
-              <span className="text-[9px] sm:text-[10px] text-slate-500 font-semibold tracking-wider uppercase mt-0.5 sm:mt-1">
+              <span className="hidden xs:block text-[9px] sm:text-[10px] text-slate-500 font-semibold tracking-wider uppercase mt-0.5 sm:mt-1">
                 Name of Quality Education • Est. 2020
               </span>
             </div>
@@ -223,33 +237,50 @@ export default function Navbar({ activeView, setActiveView, onOpenSearch, onOpen
               </a>
             </div>
 
-            {navItems.map((item) => (
-              <div key={item.id} className="space-y-1">
-                <button
-                  onClick={() => handleNavClick(item.id)}
-                  className={`w-full text-left font-bold py-2 px-2 rounded-lg border-b border-slate-100 flex justify-between items-center text-sm ${
-                    activeView.startsWith(item.id) ? 'text-amber-700 bg-amber-50/50 font-extrabold' : 'text-slate-800'
-                  }`}
-                >
-                  <span>{item.label}</span>
-                </button>
-                {item.subitems && (
-                  <div className="pl-4 space-y-1 pt-1 border-l-2 border-amber-200 ml-2">
-                    {item.subitems.map((sub) => (
-                      <button
-                        key={sub.id}
-                        onClick={() => handleNavClick(item.id, sub.id)}
-                        className={`block w-full text-left text-xs font-medium py-1.5 px-2 rounded hover:text-amber-700 hover:bg-amber-50/30 transition ${
-                          activeView === sub.id ? 'text-amber-800 font-bold bg-amber-50' : 'text-slate-600'
-                        }`}
-                      >
-                        • {sub.label}
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
+            {navItems.map((item) => {
+              const hasSub = !!item.subitems;
+              const isExpanded = !!expandedMobileItems[item.id];
+              return (
+                <div key={item.id} className="space-y-1">
+                  <button
+                    onClick={() => {
+                      if (hasSub) {
+                        toggleMobileExpand(item.id);
+                      } else {
+                        handleNavClick(item.id);
+                      }
+                    }}
+                    className={`w-full text-left font-bold py-2 px-2 rounded-lg border-b border-slate-100 flex justify-between items-center text-sm ${
+                      activeView.startsWith(item.id) ? 'text-amber-700 bg-amber-50/50 font-extrabold' : 'text-slate-800'
+                    }`}
+                  >
+                    <span>{item.label}</span>
+                    {hasSub && (
+                      <ChevronDown 
+                        className={`w-4 h-4 text-slate-500 transition-transform duration-200 ${
+                          isExpanded ? 'rotate-180' : ''
+                        }`} 
+                      />
+                    )}
+                  </button>
+                  {hasSub && isExpanded && (
+                    <div className="pl-4 space-y-1 pt-1 border-l-2 border-amber-200 ml-2 animate-in slide-in-from-top-2 duration-150">
+                      {item.subitems.map((sub) => (
+                        <button
+                          key={sub.id}
+                          onClick={() => handleNavClick(item.id, sub.id)}
+                          className={`block w-full text-left text-xs font-medium py-1.5 px-2 rounded hover:text-amber-700 hover:bg-amber-50/30 transition ${
+                            activeView === sub.id ? 'text-amber-800 font-bold bg-amber-50' : 'text-slate-600'
+                          }`}
+                        >
+                          • {sub.label}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </div>
         )}
       </header>
