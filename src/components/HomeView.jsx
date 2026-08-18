@@ -15,7 +15,7 @@ export default function HomeView({ onNavigate, onOpenSearch, onOpenDonate, onOpe
 
       {/* Core Mandate Banner - Crisp White Theme with Rich Imagery */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="bg-gradient-to-br from-amber-50/70 via-white to-slate-50 p-8 sm:p-10 rounded-3xl border border-amber-200/60 shadow-lg shadow-amber-500/5 relative overflow-hidden">
+        <div className="bg-gradient-to-br from-amber-50/70 via-white to-slate-50 p-5 sm:p-10 rounded-2xl sm:rounded-3xl border border-amber-200/60 shadow-lg shadow-amber-500/5 relative overflow-hidden">
           
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             

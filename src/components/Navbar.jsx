@@ -119,21 +119,21 @@ export default function Navbar({ activeView, setActiveView, onOpenSearch, onOpen
       <header className={`sticky top-0 z-40 transition-all duration-300 ${isScrolled ? 'bg-white/95 backdrop-blur-xl border-b border-slate-200 shadow-md py-2.5' : 'bg-white border-b border-slate-200 py-3'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 flex justify-between items-center gap-4">
           
-          {/* Official Logo Brand (Properly Contained without Badges Colliding with Home) */}
+          {/* Official Logo Brand */}
           <div 
             onClick={() => handleNavClick('home')}
-            className="flex items-center space-x-3 cursor-pointer group flex-shrink-0"
+            className="flex items-center space-x-2 sm:space-x-3 cursor-pointer group flex-shrink-0"
           >
             <img 
               src="/images/logo_emblem.png" 
               alt="Shiksha Gyan Foundation Logo Emblem" 
-              className="h-11 sm:h-12 w-auto object-contain group-hover:scale-105 transition-transform"
+              className="h-10 sm:h-12 w-auto object-contain group-hover:scale-105 transition-transform"
             />
             <div className="flex flex-col justify-center">
-              <span className="text-base sm:text-lg font-black tracking-tight text-red-700 font-serif leading-none group-hover:text-red-800 transition">
+              <span className="text-sm sm:text-lg font-black tracking-tight text-red-700 font-serif leading-none group-hover:text-red-800 transition">
                 SHIKSHA GYAN FOUNDATION
               </span>
-              <span className="text-[10px] text-slate-500 font-semibold tracking-wider uppercase mt-1">
+              <span className="text-[9px] sm:text-[10px] text-slate-500 font-semibold tracking-wider uppercase mt-0.5 sm:mt-1">
                 Name of Quality Education • Est. 2020
               </span>
             </div>
@@ -181,16 +181,18 @@ export default function Navbar({ activeView, setActiveView, onOpenSearch, onOpen
           </nav>
 
           {/* Mobile Menu Button */}
-          <div className="flex lg:hidden items-center space-x-2">
+          <div className="flex lg:hidden items-center space-x-1 sm:space-x-2">
             <button
               onClick={onOpenSearch}
-              className="p-2 text-slate-700 hover:text-amber-600 rounded-lg hover:bg-slate-100"
+              className="p-2 text-slate-700 hover:text-amber-600 rounded-lg hover:bg-slate-100 active:bg-slate-200 transition"
+              aria-label="Search"
             >
               <Search className="w-5 h-5" />
             </button>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 text-slate-700 hover:text-slate-900 rounded-lg hover:bg-slate-100"
+              className="p-2 text-slate-700 hover:text-slate-900 rounded-lg hover:bg-slate-100 active:bg-slate-200 transition"
+              aria-label="Toggle menu"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
@@ -200,22 +202,46 @@ export default function Navbar({ activeView, setActiveView, onOpenSearch, onOpen
 
         {/* Mobile Navigation Drawer */}
         {mobileMenuOpen && (
-          <div className="lg:hidden bg-white border-b border-slate-200 px-4 pt-3 pb-6 space-y-3 max-h-[85vh] overflow-y-auto">
+          <div className="lg:hidden bg-white border-b border-slate-200 px-4 pt-3 pb-6 space-y-3 max-h-[85vh] overflow-y-auto shadow-xl">
+            {/* Quick Mobile Action Bar */}
+            <div className="grid grid-cols-2 gap-2 pb-3 border-b border-slate-100">
+              <a
+                href={getWhatsAppDonationLink("Child Education")}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="py-2.5 px-3 bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-bold rounded-xl flex items-center justify-center space-x-1.5 shadow-sm text-center"
+              >
+                <Heart className="w-3.5 h-3.5 fill-slate-950" />
+                <span>Donate</span>
+              </a>
+              <a
+                href={`tel:${FOUNDATION_INFO.phones[0]}`}
+                className="py-2.5 px-3 bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold rounded-xl flex items-center justify-center space-x-1.5 border border-slate-200 text-center"
+              >
+                <Phone className="w-3.5 h-3.5 text-amber-600" />
+                <span>Call Helpline</span>
+              </a>
+            </div>
+
             {navItems.map((item) => (
               <div key={item.id} className="space-y-1">
                 <button
                   onClick={() => handleNavClick(item.id)}
-                  className="w-full text-left font-bold text-slate-800 hover:text-amber-600 py-2 border-b border-slate-100 flex justify-between items-center text-sm"
+                  className={`w-full text-left font-bold py-2 px-2 rounded-lg border-b border-slate-100 flex justify-between items-center text-sm ${
+                    activeView.startsWith(item.id) ? 'text-amber-700 bg-amber-50/50 font-extrabold' : 'text-slate-800'
+                  }`}
                 >
                   <span>{item.label}</span>
                 </button>
                 {item.subitems && (
-                  <div className="pl-4 space-y-1.5 pt-1 border-l-2 border-slate-200 ml-2">
+                  <div className="pl-4 space-y-1 pt-1 border-l-2 border-amber-200 ml-2">
                     {item.subitems.map((sub) => (
                       <button
                         key={sub.id}
                         onClick={() => handleNavClick(item.id, sub.id)}
-                        className="block w-full text-left text-xs font-medium text-slate-600 hover:text-amber-600 py-1"
+                        className={`block w-full text-left text-xs font-medium py-1.5 px-2 rounded hover:text-amber-700 hover:bg-amber-50/30 transition ${
+                          activeView === sub.id ? 'text-amber-800 font-bold bg-amber-50' : 'text-slate-600'
+                        }`}
                       >
                         • {sub.label}
                       </button>
