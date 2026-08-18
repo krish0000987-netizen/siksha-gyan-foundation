@@ -88,7 +88,23 @@ export default function ActivitiesView({ activeSub, onNavigate }) {
             <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900">Educational Seminars & Book Exhibitions</h3>
           </div>
 
-          <div className="flex flex-wrap gap-1.5">
+          {/* Mobile Select Dropdown */}
+          <div className="block sm:hidden w-full px-1">
+            <select
+              value={selectedYear}
+              onChange={(e) => setSelectedYear(e.target.value)}
+              className="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl text-slate-800 font-extrabold text-sm focus:outline-none focus:ring-2 focus:ring-amber-500"
+            >
+              {years.map((yr) => (
+                <option key={yr} value={yr}>
+                  Year: {yr === 'All' ? 'All Years' : yr}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* Desktop Filter Buttons */}
+          <div className="hidden sm:flex flex-wrap gap-1.5">
             {years.map((yr) => (
               <button
                 key={yr}

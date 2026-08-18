@@ -47,6 +47,13 @@ export const getWhatsAppDonationLink = (cause = "Child Education", amount = "") 
   return `https://wa.me/${FOUNDATION_INFO.whatsappNumber}?text=${text}`;
 };
 
+export const getWhatsAppInquiryLink = (programName = "General Inquiry") => {
+  const text = encodeURIComponent(
+    `Hello Shiksha Gyan Foundation,\nI would like to inquire about your ${programName} program.\nPlease share course structure, admission eligibility, and batch schedules.`
+  );
+  return `https://wa.me/${FOUNDATION_INFO.whatsappNumber}?text=${text}`;
+};
+
 export const HERO_SLIDES = [
   {
     id: 1,

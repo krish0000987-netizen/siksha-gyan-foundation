@@ -152,8 +152,23 @@ export default function AboutView({ activeSub, onNavigate }) {
           </div>
         </div>
 
-        {/* Filter Bar */}
-        <div className="flex flex-wrap gap-2 pt-2">
+        {/* Mobile Select Dropdown */}
+        <div className="block sm:hidden w-full px-1">
+          <select
+            value={selectedFacultyCategory}
+            onChange={(e) => setSelectedFacultyCategory(e.target.value)}
+            className="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl text-slate-800 font-extrabold text-sm focus:outline-none focus:ring-2 focus:ring-amber-500"
+          >
+            {facultyCategories.map((cat) => (
+              <option key={cat} value={cat}>
+                Category: {cat}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {/* Desktop Filter Buttons */}
+        <div className="hidden sm:flex flex-wrap gap-2 pt-2">
           {facultyCategories.map((cat) => (
             <button
               key={cat}

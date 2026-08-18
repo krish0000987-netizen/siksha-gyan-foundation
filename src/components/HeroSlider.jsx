@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ChevronLeft, ChevronRight, Pause, Play, Sparkles, ArrowRight, Heart } from 'lucide-react';
-import { HERO_SLIDES, getWhatsAppDonationLink } from '../data/foundationData';
+import { HERO_SLIDES, getWhatsAppDonationLink, getWhatsAppInquiryLink } from '../data/foundationData';
 
 export default function HeroSlider({ onNavigate, onOpenDonate }) {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -88,26 +88,36 @@ export default function HeroSlider({ onNavigate, onOpenDonate }) {
             {slide.mobileSubtitle || slide.subtitle}
           </p>
 
-          {/* Single Clean Action Button */}
-          <div className="pt-1">
+          {/* Action Button(s) */}
+          <div className="pt-1 flex gap-2">
             {slide.ctaTarget === 'donate' ? (
               <a
                 href={getWhatsAppDonationLink("Child Education")}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full py-2.5 px-4 bg-amber-500 hover:bg-amber-400 active:bg-amber-600 text-slate-950 font-bold rounded-xl text-xs flex items-center justify-center space-x-1.5 shadow-sm text-center"
+                className="w-full py-2.5 px-4 bg-amber-500 hover:bg-amber-400 active:bg-amber-600 text-slate-950 font-bold rounded-xl text-xs flex items-center justify-center space-x-1.5 shadow-sm text-center font-black"
               >
                 <span>{slide.ctaText}</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </a>
             ) : (
-              <button
-                onClick={() => onNavigate(slide.ctaTarget)}
-                className="w-full py-2.5 px-4 bg-amber-500 hover:bg-amber-400 active:bg-amber-600 text-slate-950 font-bold rounded-xl text-xs flex items-center justify-center space-x-1.5 shadow-sm text-center"
-              >
-                <span>{slide.ctaText}</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </button>
+              <>
+                <button
+                  onClick={() => onNavigate(slide.ctaTarget)}
+                  className="flex-1 py-2.5 px-2 bg-slate-100 hover:bg-slate-200 active:bg-slate-300 text-slate-950 font-bold rounded-xl text-xs flex items-center justify-center space-x-1 border border-slate-200 text-center"
+                >
+                  <span>Info</span>
+                  <ArrowRight className="w-3 h-3" />
+                </button>
+                <a
+                  href={getWhatsAppInquiryLink(slide.mobileTitle || slide.title)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-1 py-2.5 px-2 bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-750 text-white font-bold rounded-xl text-xs flex items-center justify-center space-x-1 shadow-sm text-center"
+                >
+                  <span>WhatsApp Inquiry</span>
+                </a>
+              </>
             )}
           </div>
 
@@ -158,7 +168,7 @@ export default function HeroSlider({ onNavigate, onOpenDonate }) {
             </div>
 
             {/* Action CTAs */}
-            <div className="pt-2 flex items-center space-x-4">
+            <div className="pt-2 flex flex-wrap items-center gap-4">
               {slide.ctaTarget === 'donate' ? (
                 <a
                   href={getWhatsAppDonationLink("Child Education")}
@@ -170,13 +180,23 @@ export default function HeroSlider({ onNavigate, onOpenDonate }) {
                   <ArrowRight className="w-4 h-4" />
                 </a>
               ) : (
-                <button
-                  onClick={() => onNavigate(slide.ctaTarget)}
-                  className="px-6 py-3.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-xl shadow-xl shadow-amber-500/25 flex items-center space-x-2 transition-all transform hover:-translate-y-0.5"
-                >
-                  <span>{slide.ctaText}</span>
-                  <ArrowRight className="w-4 h-4" />
-                </button>
+                <>
+                  <button
+                    onClick={() => onNavigate(slide.ctaTarget)}
+                    className="px-6 py-3.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-xl shadow-xl shadow-amber-500/25 flex items-center space-x-2 transition-all transform hover:-translate-y-0.5"
+                  >
+                    <span>{slide.ctaText}</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </button>
+                  <a
+                    href={getWhatsAppInquiryLink(slide.title)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-6 py-3.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl shadow-lg flex items-center space-x-2 transition-all transform hover:-translate-y-0.5"
+                  >
+                    <span>Inquire via WhatsApp</span>
+                  </a>
+                </>
               )}
 
               <a

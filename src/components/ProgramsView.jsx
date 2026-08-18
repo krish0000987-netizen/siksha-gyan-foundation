@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { 
   BookOpen, Target, GraduationCap, Wrench, Heart, Sparkles, CheckCircle2, ArrowRight, ShieldCheck, HelpCircle, Users, Award
 } from 'lucide-react';
-import { COMPETITIVE_STRATEGY_STEPS, DESIGN_THREE_STEP_MODEL, getWhatsAppDonationLink } from '../data/foundationData';
+import { COMPETITIVE_STRATEGY_STEPS, DESIGN_THREE_STEP_MODEL, getWhatsAppDonationLink, getWhatsAppInquiryLink } from '../data/foundationData';
 
 export default function ProgramsView({ activeSub, onNavigate, onOpenDonate, onOpenQuiz }) {
   const [activeTab, setActiveTab] = useState(activeSub || 'prog-child');
@@ -35,21 +35,46 @@ export default function ProgramsView({ activeSub, onNavigate, onOpenDonate, onOp
         </p>
       </div>
 
-      {/* Tabs Navigation - White and Gold Style */}
-      <div className="flex flex-wrap gap-2 justify-center border-b border-slate-200 pb-4">
-        {tabs.map((tab) => (
-          <button
-            key={tab.id}
-            onClick={() => setActiveTab(tab.id)}
-            className={`px-4 py-2.5 rounded-xl text-xs font-bold transition flex items-center space-x-2 border ${
-              activeTab === tab.id 
-                ? 'bg-amber-500 text-white border-amber-500 shadow-md shadow-amber-500/20' 
-                : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100 hover:text-slate-900'
-            }`}
+      {/* Tabs Navigation - Mobile Dropdown & Desktop Buttons */}
+      <div className="w-full border-b border-slate-200 pb-4">
+        {/* Mobile Dropdown Select */}
+        <div className="block sm:hidden w-full px-1">
+          <label htmlFor="program-tabs-select" className="block text-xs font-bold text-slate-500 mb-2 uppercase tracking-wider">
+            Explore Program Section:
+          </label>
+          <select
+            id="program-tabs-select"
+            value={activeTab}
+            onChange={(e) => {
+              setActiveTab(e.target.value);
+              window.scrollTo({ top: 180, behavior: 'smooth' });
+            }}
+            className="w-full p-3 bg-slate-50 border border-slate-300 rounded-xl text-slate-800 font-extrabold text-sm focus:outline-none focus:ring-2 focus:ring-amber-500"
           >
-            <span>{tab.label}</span>
-          </button>
-        ))}
+            {tabs.map((tab) => (
+              <option key={tab.id} value={tab.id}>
+                {tab.label}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {/* Desktop Buttons */}
+        <div className="hidden sm:flex flex-wrap gap-2 justify-center">
+          {tabs.map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`px-4 py-2.5 rounded-xl text-xs font-bold transition flex items-center space-x-2 border ${
+                activeTab === tab.id 
+                  ? 'bg-amber-500 text-white border-amber-500 shadow-md shadow-amber-500/20' 
+                  : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100 hover:text-slate-900'
+              }`}
+            >
+              <span>{tab.label}</span>
+            </button>
+          ))}
+        </div>
       </div>
 
       {/* TAB 1: Child & Foundational Education (Points 3, 4, 5) */}
@@ -170,6 +195,16 @@ export default function ProgramsView({ activeSub, onNavigate, onOpenDonate, onOp
                 <p className="text-slate-700 text-sm">
                   Competitive examinations require smart, time-bound, structured preparation alongside hard work. Lead Faculty: <strong>Mr. Mandar Rawool</strong>.
                 </p>
+                <div className="pt-2">
+                  <a
+                    href={getWhatsAppInquiryLink("Competitive Examination Center (UPSC/MPSC)")}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex px-5 py-3 bg-emerald-600 hover:bg-emerald-550 text-white font-bold rounded-xl shadow-md transition items-center space-x-2 text-xs sm:text-sm"
+                  >
+                    <span>Inquire via WhatsApp (UPSC / MPSC)</span>
+                  </a>
+                </div>
               </div>
               <div className="lg:col-span-5">
                 <img 
@@ -226,6 +261,16 @@ export default function ProgramsView({ activeSub, onNavigate, onOpenDonate, onOp
                 <p className="text-slate-700 text-sm">
                   Specialized guidance led by <strong>Mr. Rajkumar Mone</strong> for NDA, CDS, NA, AFCAT & CAPF aspirants.
                 </p>
+                <div className="pt-2">
+                  <a
+                    href={getWhatsAppInquiryLink("Defence Exam Guidance (NDA/CDS/AFCAT)")}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex px-5 py-3 bg-emerald-600 hover:bg-emerald-550 text-white font-bold rounded-xl shadow-md transition items-center space-x-2 text-xs sm:text-sm"
+                  >
+                    <span>Inquire via WhatsApp (NDA / CDS / Defence)</span>
+                  </a>
+                </div>
               </div>
               <div className="lg:col-span-5">
                 <img 
@@ -264,6 +309,16 @@ export default function ProgramsView({ activeSub, onNavigate, onOpenDonate, onOp
                 <p className="text-slate-700 text-sm">
                   Academic guidance + entrance preparation + career direction for 11th & 12th Science and Commerce students.
                 </p>
+                <div className="pt-2">
+                  <a
+                    href={getWhatsAppInquiryLink("Academic Entrance (JEE/NEET/CET)")}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex px-5 py-3 bg-emerald-600 hover:bg-emerald-550 text-white font-bold rounded-xl shadow-md transition items-center space-x-2 text-xs sm:text-sm"
+                  >
+                    <span>Inquire via WhatsApp (JEE / NEET / CET)</span>
+                  </a>
+                </div>
               </div>
               <div className="lg:col-span-5">
                 <img 
@@ -303,13 +358,21 @@ export default function ProgramsView({ activeSub, onNavigate, onOpenDonate, onOp
                 <p className="text-slate-700 text-sm leading-relaxed">
                   Many students select conventional engineering or medical paths due to peer pressure, parent pressure, or lack of awareness. Shiksha Gyan Foundation promotes awareness of creative careers in Design, Architecture, Fashion, and Fine Art.
                 </p>
-                <div className="pt-2">
+                <div className="pt-2 flex flex-wrap gap-2">
                   <button
                     onClick={onOpenQuiz}
-                    className="px-5 py-2.5 bg-amber-500 text-white font-bold rounded-xl text-xs hover:bg-amber-600 transition shadow-sm"
+                    className="px-5 py-2.5 bg-amber-500 text-slate-950 font-bold rounded-xl text-xs hover:bg-amber-400 transition shadow-sm"
                   >
                     Try Design Aptitude Quiz Demo
                   </button>
+                  <a
+                    href={getWhatsAppInquiryLink("Design & Creative Careers (NID/NIFT)")}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex px-5 py-2.5 bg-emerald-600 hover:bg-emerald-550 text-white font-bold rounded-xl shadow-sm transition items-center space-x-2 text-xs"
+                  >
+                    <span>Inquire via WhatsApp</span>
+                  </a>
                 </div>
               </div>
               <div className="lg:col-span-5">
@@ -364,6 +427,16 @@ export default function ProgramsView({ activeSub, onNavigate, onOpenDonate, onOp
                 <p className="text-slate-700 text-sm">
                   Our model: <strong>Training → Skill → Employability → Placement Support</strong>. Centers established in urban and rural areas.
                 </p>
+                <div className="pt-2">
+                  <a
+                    href={getWhatsAppInquiryLink("Skill Development & Vocational Courses")}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex px-5 py-3 bg-emerald-600 hover:bg-emerald-550 text-white font-bold rounded-xl shadow-md transition items-center space-x-2 text-xs sm:text-sm"
+                  >
+                    <span>Inquire via WhatsApp (Courses & Admission)</span>
+                  </a>
+                </div>
               </div>
               <div className="lg:col-span-5">
                 <img 
