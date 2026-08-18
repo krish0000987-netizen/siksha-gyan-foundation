@@ -141,10 +141,10 @@ export default function Navbar({ activeView, setActiveView, onOpenSearch, onOpen
             <img 
               src="/images/logo_emblem.png" 
               alt="Shiksha Gyan Foundation Logo Emblem" 
-              className="h-10 sm:h-12 w-auto object-contain group-hover:scale-105 transition-transform"
+              className="h-9 sm:h-12 w-auto object-contain group-hover:scale-105 transition-transform"
             />
-            <div className="flex flex-col justify-center max-w-[150px] xs:max-w-none">
-              <span className="text-[11px] xs:text-sm sm:text-lg font-black tracking-tight text-red-700 font-serif leading-none group-hover:text-red-800 transition truncate xs:whitespace-normal">
+            <div className="flex flex-col justify-center">
+              <span className="text-[10px] min-[360px]:text-xs min-[400px]:text-sm sm:text-lg font-black tracking-tight text-red-700 font-serif leading-none group-hover:text-red-800 transition">
                 SHIKSHA GYAN FOUNDATION
               </span>
               <span className="hidden xs:block text-[9px] sm:text-[10px] text-slate-500 font-semibold tracking-wider uppercase mt-0.5 sm:mt-1">
