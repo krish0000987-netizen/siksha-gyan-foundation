@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { 
   BookOpen, Target, GraduationCap, Wrench, Heart, Sparkles, CheckCircle2, ArrowRight, ShieldCheck, HelpCircle, Users, Award
 } from 'lucide-react';
-import { COMPETITIVE_STRATEGY_STEPS, DESIGN_THREE_STEP_MODEL } from '../data/foundationData';
+import { COMPETITIVE_STRATEGY_STEPS, DESIGN_THREE_STEP_MODEL, getWhatsAppDonationLink } from '../data/foundationData';
 
 export default function ProgramsView({ activeSub, onNavigate, onOpenDonate, onOpenQuiz }) {
   const [activeTab, setActiveTab] = useState(activeSub || 'prog-child');
@@ -65,13 +65,15 @@ export default function ProgramsView({ activeSub, onNavigate, onOpenDonate, onOp
                   Shiksha Gyan Foundation focuses on using education as a key mechanism for social development and improving life opportunities for children from underserved communities. Rather than restricting learning to a narrow age bracket, we present education as a continuous journey spanning ages 6 to 60.
                 </p>
                 <div className="pt-2">
-                  <button
-                    onClick={onOpenDonate}
-                    className="px-6 py-3 bg-amber-500 text-white font-bold rounded-xl shadow-md hover:bg-amber-600 transition flex items-center space-x-2"
+                  <a
+                    href={getWhatsAppDonationLink("Child Education")}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex px-6 py-3 bg-amber-500 text-white font-bold rounded-xl shadow-md hover:bg-amber-600 transition items-center space-x-2"
                   >
                     <Heart className="w-4 h-4 fill-white text-white" />
-                    <span>Donate for Child Education</span>
-                  </button>
+                    <span>Donate for Child Education (WhatsApp)</span>
+                  </a>
                 </div>
               </div>
               <div className="lg:col-span-5">

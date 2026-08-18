@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { X, Heart, CheckCircle2, ShieldCheck, Lock, Sparkles, Building, Phone, Mail } from 'lucide-react';
+import { X, Heart, CheckCircle2, ShieldCheck, Lock, Sparkles, Building, Phone, Mail, MessageSquare } from 'lucide-react';
 import confetti from 'canvas-confetti';
-import { FOUNDATION_INFO } from '../data/foundationData';
+import { FOUNDATION_INFO, getWhatsAppDonationLink } from '../data/foundationData';
 
 export default function DonationModal({ isOpen, onClose }) {
   const [selectedCause, setSelectedCause] = useState('child-education');
@@ -27,6 +27,9 @@ export default function DonationModal({ isOpen, onClose }) {
     { id: 'health-camp', title: 'Community Health & Eye Checkup Camp', desc: 'Fund free blood testing kits and senior citizen eye care spectacles.' }
   ];
 
+  const finalAmount = amount === 'custom' ? customAmount : amount;
+  const currentCauseObj = causes.find(c => c.id === selectedCause);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsSubmitted(true);
@@ -40,9 +43,10 @@ export default function DonationModal({ isOpen, onClose }) {
     } catch (err) {
       console.log('Confetti trigger:', err);
     }
+    // Open WhatsApp with prefilled message
+    const waUrl = getWhatsAppDonationLink(currentCauseObj ? currentCauseObj.title : "Child Education", finalAmount || "2500");
+    window.open(waUrl, '_blank');
   };
-
-  const finalAmount = amount === 'custom' ? customAmount : amount;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/60 backdrop-blur-sm animate-in fade-in duration-200">
@@ -53,7 +57,7 @@ export default function DonationModal({ isOpen, onClose }) {
           <div>
             <div className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-amber-100 text-amber-900 text-xs font-bold mb-2">
               <Heart className="w-3.5 h-3.5 fill-amber-700 text-amber-700" />
-              <span>Official Support Portal</span>
+              <span>Official WhatsApp Support Portal</span>
             </div>
             <h3 className="text-2xl font-extrabold text-slate-900">Donate to Shiksha Gyan Foundation</h3>
             <p className="text-xs text-slate-600 mt-1">
@@ -138,7 +142,7 @@ export default function DonationModal({ isOpen, onClose }) {
 
             {/* Donor Information */}
             <div className="space-y-3 pt-2 border-t border-slate-200">
-              <h5 className="text-xs font-bold text-slate-700 uppercase tracking-wider">Donor Details</h5>
+              <h5 className="text-xs font-bold text-slate-700 uppercase tracking-wider">Your Contact Details</h5>
               <div className="grid grid-cols-2 gap-3">
                 <input
                   type="text"
@@ -159,14 +163,14 @@ export default function DonationModal({ isOpen, onClose }) {
                 <input
                   type="tel"
                   required
-                  placeholder="Mobile Phone *"
+                  placeholder="WhatsApp Mobile Number *"
                   value={donorDetails.phone}
                   onChange={(e) => setDonorDetails({ ...donorDetails, phone: e.target.value })}
                   className="bg-white border border-slate-300 rounded-xl px-3 py-2 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-amber-500 shadow-sm"
                 />
                 <input
                   type="text"
-                  placeholder="PAN Card (Optional)"
+                  placeholder="PAN Card (For 80G Tax Exemption)"
                   value={donorDetails.pan}
                   onChange={(e) => setDonorDetails({ ...donorDetails, pan: e.target.value })}
                   className="bg-white border border-slate-300 rounded-xl px-3 py-2 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-amber-500 shadow-sm"
@@ -177,40 +181,45 @@ export default function DonationModal({ isOpen, onClose }) {
             {/* Security Assurance */}
             <div className="bg-amber-50 p-3.5 rounded-xl border border-amber-200 text-[11px] text-amber-950 flex items-center space-x-2 font-medium">
               <ShieldCheck className="w-5 h-5 text-amber-600 flex-shrink-0" />
-              <span>Official 80G tax receipt will be issued to {donorDetails.email || 'your email'} upon verification.</span>
+              <span>Connects instantly with Foundation Secretary on WhatsApp for direct account details and 80G receipt.</span>
             </div>
 
-            {/* Submit Button */}
+            {/* Submit Button - Transfers to WhatsApp */}
             <button
               type="submit"
-              className="w-full py-3.5 bg-amber-500 hover:bg-amber-600 text-white font-extrabold text-base rounded-xl shadow-md transition flex items-center justify-center space-x-2"
+              className="w-full py-3.5 bg-green-600 hover:bg-green-700 text-white font-extrabold text-base rounded-xl shadow-md transition flex items-center justify-center space-x-2"
             >
-              <Heart className="w-5 h-5 fill-white" />
-              <span>Proceed to Support ₹{Number(finalAmount || 2500).toLocaleString('en-IN')}</span>
+              <MessageSquare className="w-5 h-5 fill-white" />
+              <span>Connect on WhatsApp (₹{Number(finalAmount || 2500).toLocaleString('en-IN')})</span>
             </button>
 
           </form>
         ) : (
           /* Confirmation State */
           <div className="p-8 text-center space-y-4">
-            <div className="w-16 h-16 bg-amber-100 text-amber-700 rounded-full flex items-center justify-center mx-auto border border-amber-300">
+            <div className="w-16 h-16 bg-green-100 text-green-700 rounded-full flex items-center justify-center mx-auto border border-green-300">
               <CheckCircle2 className="w-10 h-10" />
             </div>
-            <h3 className="text-2xl font-extrabold text-slate-900">Thank You, {donorDetails.name || 'Generous Donor'}!</h3>
+            <h3 className="text-2xl font-extrabold text-slate-900">Transferring to WhatsApp...</h3>
             <p className="text-sm text-slate-700 max-w-md mx-auto">
-              Your pledge of <strong className="text-amber-700">₹{Number(finalAmount || 2500).toLocaleString('en-IN')}</strong> to <span className="text-slate-900 font-bold">Shiksha Gyan Foundation</span> will help educate and transform underprivileged children in Maharashtra.
+              Connecting you directly with <span className="text-slate-900 font-bold">Shiksha Gyan Foundation WhatsApp Support ({FOUNDATION_INFO.phones[0]})</span> for your donation of <strong className="text-amber-700">₹{Number(finalAmount || 2500).toLocaleString('en-IN')}</strong>.
             </p>
-            <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 text-xs text-slate-700 text-left max-w-md mx-auto space-y-1">
-              <p><strong className="text-slate-900">Reference:</strong> SGF-DON-{Math.floor(100000 + Math.random() * 900000)}</p>
-              <p><strong className="text-slate-900">Official Contact:</strong> {FOUNDATION_INFO.phones[0]} / {FOUNDATION_INFO.email}</p>
-              <p><strong className="text-slate-900">Receipt:</strong> Sent to {donorDetails.email || 'your registered contact'}</p>
+            <div className="pt-2 flex justify-center space-x-3">
+              <a
+                href={getWhatsAppDonationLink(currentCauseObj ? currentCauseObj.title : "Child Education", finalAmount || "2500")}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-6 py-2.5 bg-green-600 text-white font-bold rounded-xl shadow-md hover:bg-green-700 transition inline-block"
+              >
+                Open WhatsApp Again
+              </a>
+              <button
+                onClick={() => { setIsSubmitted(false); onClose(); }}
+                className="px-6 py-2.5 bg-slate-100 text-slate-800 font-bold rounded-xl hover:bg-slate-200 transition inline-block"
+              >
+                Close
+              </button>
             </div>
-            <button
-              onClick={() => { setIsSubmitted(false); onClose(); }}
-              className="px-6 py-2.5 bg-amber-500 text-white font-bold rounded-xl shadow-md hover:bg-amber-600 transition inline-block"
-            >
-              Close Confirmation
-            </button>
           </div>
         )}
 

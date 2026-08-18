@@ -1,6 +1,6 @@
 import React from 'react';
 import { ShieldCheck, Phone, Mail, MapPin, Heart, ArrowUp } from 'lucide-react';
-import { FOUNDATION_INFO } from '../data/foundationData';
+import { FOUNDATION_INFO, getWhatsAppDonationLink } from '../data/foundationData';
 
 export default function Footer({ onNavigate, onOpenDonate }) {
   const scrollToTop = () => {
@@ -88,13 +88,15 @@ export default function Footer({ onNavigate, onOpenDonate }) {
               </p>
             </div>
             <div className="pt-2">
-              <button
-                onClick={onOpenDonate}
-                className="w-full py-2 bg-amber-500 text-white font-bold rounded-lg hover:bg-amber-600 transition flex items-center justify-center space-x-1.5 shadow-sm"
+              <a
+                href={getWhatsAppDonationLink("Child Education")}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full py-2 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-lg transition flex items-center justify-center space-x-1.5 shadow-sm"
               >
                 <Heart className="w-3.5 h-3.5 fill-white" />
-                <span>Donate for Child Education</span>
-              </button>
+                <span>Donate on WhatsApp</span>
+              </a>
             </div>
           </div>
 

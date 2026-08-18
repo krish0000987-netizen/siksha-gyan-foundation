@@ -1,4 +1,4 @@
-// SHIKSHA GYAN FOUNDATION - Master Data File with Official Logo and Clean Entity Structures
+// SHIKSHA GYAN FOUNDATION - Master Data File with Official Logo, Clean Entities and WhatsApp Helpers
 
 export const FOUNDATION_INFO = {
   name: "SHIKSHA GYAN FOUNDATION",
@@ -10,6 +10,7 @@ export const FOUNDATION_INFO = {
   beneficiaryAgeRange: "6 to 60 Years",
   website: "www.shikshagyanfoundation.org",
   email: "nitin@shikshagyanfoundation.org",
+  whatsappNumber: "918291373187",
   phones: ["8291373187", "7021475595", "9549411349"],
   address: {
     line1: "1/7 Hanuman Prasad Society",
@@ -37,6 +38,13 @@ export const FOUNDATION_INFO = {
     ifscCode: "To be announced",
     micrCode: "To be announced"
   }
+};
+
+export const getWhatsAppDonationLink = (cause = "Child Education", amount = "") => {
+  const text = encodeURIComponent(
+    `Hello Shiksha Gyan Foundation,\nI would like to support and donate for ${cause}${amount ? ` (Amount: ₹${amount})` : ''}.\nPlease guide me with the donation details and 80G receipt.`
+  );
+  return `https://wa.me/${FOUNDATION_INFO.whatsappNumber}?text=${text}`;
 };
 
 export const HERO_SLIDES = [

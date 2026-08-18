@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ChevronLeft, ChevronRight, Pause, Play, Sparkles, ArrowRight, ShieldCheck, Heart } from 'lucide-react';
-import { HERO_SLIDES } from '../data/foundationData';
+import { HERO_SLIDES, getWhatsAppDonationLink } from '../data/foundationData';
 
 export default function HeroSlider({ onNavigate, onOpenDonate }) {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -11,7 +11,7 @@ export default function HeroSlider({ onNavigate, onOpenDonate }) {
     if (isPlaying) {
       timerRef.current = setInterval(() => {
         setCurrentSlide((prev) => (prev + 1) % HERO_SLIDES.length);
-      }, 3000); // Strict 3-second slideshow as requested
+      }, 3000); // 3-second slideshow
     }
     return () => clearInterval(timerRef.current);
   }, [isPlaying]);
@@ -72,33 +72,41 @@ export default function HeroSlider({ onNavigate, onOpenDonate }) {
           </h1>
 
           {/* Subtitle */}
-          <p className="text-slate-300 text-base sm:text-lg leading-relaxed font-normal text-slate-200">
+          <p className="text-slate-200 text-base sm:text-lg leading-relaxed font-normal">
             {slide.subtitle}
           </p>
 
           {/* Action CTAs */}
           <div className="pt-3 flex flex-wrap gap-4 items-center">
-            <button
-              onClick={() => {
-                if (slide.ctaTarget === 'donate') {
-                  onOpenDonate();
-                } else {
-                  onNavigate(slide.ctaTarget);
-                }
-              }}
-              className="px-6 py-3.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-xl shadow-xl shadow-amber-500/25 flex items-center space-x-2 transition-all transform hover:-translate-y-0.5"
-            >
-              <span>{slide.ctaText}</span>
-              <ArrowRight className="w-4 h-4" />
-            </button>
+            {slide.ctaTarget === 'donate' ? (
+              <a
+                href={getWhatsAppDonationLink("Child Education")}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-6 py-3.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-xl shadow-xl shadow-amber-500/25 flex items-center space-x-2 transition-all transform hover:-translate-y-0.5"
+              >
+                <span>{slide.ctaText}</span>
+                <ArrowRight className="w-4 h-4" />
+              </a>
+            ) : (
+              <button
+                onClick={() => onNavigate(slide.ctaTarget)}
+                className="px-6 py-3.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-xl shadow-xl shadow-amber-500/25 flex items-center space-x-2 transition-all transform hover:-translate-y-0.5"
+              >
+                <span>{slide.ctaText}</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            )}
 
-            <button
-              onClick={onOpenDonate}
+            <a
+              href={getWhatsAppDonationLink("Child Education")}
+              target="_blank"
+              rel="noopener noreferrer"
               className="px-6 py-3.5 bg-slate-900/80 hover:bg-slate-800 text-white font-semibold rounded-xl border border-slate-700 flex items-center space-x-2 backdrop-blur-md transition"
             >
               <Heart className="w-4 h-4 text-amber-400 fill-amber-400/20" />
               <span>Donate for Child Ed</span>
-            </button>
+            </a>
           </div>
 
           {/* Mandate Bar */}

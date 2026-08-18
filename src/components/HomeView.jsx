@@ -4,7 +4,7 @@ import {
   ArrowRight, ShieldCheck, Award, Users, MapPin, Sparkles, Phone, CheckCircle2, Heart
 } from 'lucide-react';
 import HeroSlider from './HeroSlider';
-import { FOUNDATION_INFO, PROGRAM_CATEGORIES, GOVERNING_BODY, FACULTY_MEMBERS } from '../data/foundationData';
+import { FOUNDATION_INFO, PROGRAM_CATEGORIES, GOVERNING_BODY, FACULTY_MEMBERS, getWhatsAppDonationLink } from '../data/foundationData';
 
 export default function HomeView({ onNavigate, onOpenSearch, onOpenDonate, onOpenQuiz, onOpenCSR }) {
   return (
@@ -209,7 +209,7 @@ export default function HomeView({ onNavigate, onOpenSearch, onOpenDonate, onOpe
         </div>
       </section>
 
-      {/* Interactive Tools Teaser with Crisp White Cards */}
+      {/* Interactive Tools Teaser with Direct WhatsApp Donation */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="bg-slate-50 border border-slate-200 p-8 sm:p-10 rounded-3xl grid grid-cols-1 lg:grid-cols-3 gap-6 items-center shadow-sm">
           
@@ -251,15 +251,17 @@ export default function HomeView({ onNavigate, onOpenSearch, onOpenDonate, onOpe
             </span>
             <h4 className="text-xl font-extrabold text-slate-900">Donate for Child Education</h4>
             <p className="text-xs text-slate-600">
-              Sponsor books, digital tablets, and school supplies for underprivileged children in Maharashtra.
+              Sponsor books, digital tablets, and school supplies for underprivileged children in Maharashtra directly via WhatsApp.
             </p>
-            <button
-              onClick={onOpenDonate}
+            <a
+              href={getWhatsAppDonationLink("Child Education")}
+              target="_blank"
+              rel="noopener noreferrer"
               className="w-full py-2.5 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-xl text-xs shadow-md transition flex items-center justify-center space-x-1.5"
             >
               <Heart className="w-4 h-4 fill-white" />
-              <span>Donate Now</span>
-            </button>
+              <span>Donate on WhatsApp</span>
+            </a>
           </div>
 
         </div>

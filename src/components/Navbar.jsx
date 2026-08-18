@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { 
   Search, Phone, Mail, MapPin, ChevronDown, Menu, X, Heart, ShieldCheck 
 } from 'lucide-react';
-import { FOUNDATION_INFO } from '../data/foundationData';
+import { FOUNDATION_INFO, getWhatsAppDonationLink } from '../data/foundationData';
 
 export default function Navbar({ activeView, setActiveView, onOpenSearch, onOpenDonate }) {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -75,6 +75,11 @@ export default function Navbar({ activeView, setActiveView, onOpenSearch, onOpen
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const handleWhatsAppDonate = (e) => {
+    e.preventDefault();
+    window.open(getWhatsAppDonationLink("Child Education"), "_blank");
+  };
+
   return (
     <>
       {/* Top Banner Bar */}
@@ -110,37 +115,32 @@ export default function Navbar({ activeView, setActiveView, onOpenSearch, onOpen
         </div>
       </div>
 
-      {/* Main Sticky Navbar - with Official Logo */}
-      <header className={`sticky top-0 z-40 transition-all duration-300 ${isScrolled ? 'bg-white/95 backdrop-blur-xl border-b border-slate-200 shadow-md py-2.5' : 'bg-white border-b border-slate-200 py-3.5'}`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 flex justify-between items-center">
+      {/* Main Sticky Navbar - Fixed Brand Layout and Clean Navigation Spacing */}
+      <header className={`sticky top-0 z-40 transition-all duration-300 ${isScrolled ? 'bg-white/95 backdrop-blur-xl border-b border-slate-200 shadow-md py-2.5' : 'bg-white border-b border-slate-200 py-3'}`}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 flex justify-between items-center gap-4">
           
-          {/* Official Logo Brand */}
+          {/* Official Logo Brand (Properly Contained without Badges Colliding with Home) */}
           <div 
             onClick={() => handleNavClick('home')}
-            className="flex items-center space-x-3 cursor-pointer group"
+            className="flex items-center space-x-3 cursor-pointer group flex-shrink-0"
           >
             <img 
               src="/images/logo_emblem.png" 
-              alt="Shiksha Gyan Foundation Emblem Logo" 
-              className="h-12 w-auto object-contain group-hover:scale-105 transition-transform"
+              alt="Shiksha Gyan Foundation Logo Emblem" 
+              className="h-11 sm:h-12 w-auto object-contain group-hover:scale-105 transition-transform"
             />
-            <div>
-              <div className="flex items-center space-x-2">
-                <span className="text-xl font-extrabold tracking-tight text-red-700 font-serif group-hover:text-red-800 transition">
-                  SHIKSHA GYAN
-                </span>
-                <span className="text-xs uppercase tracking-widest px-2 py-0.5 rounded bg-red-50 text-red-700 font-bold border border-red-200 hidden sm:inline-block">
-                  FOUNDATION
-                </span>
-              </div>
-              <p className="text-[10px] text-slate-600 tracking-wider uppercase font-semibold">
+            <div className="flex flex-col justify-center">
+              <span className="text-base sm:text-lg font-black tracking-tight text-red-700 font-serif leading-none group-hover:text-red-800 transition">
+                SHIKSHA GYAN FOUNDATION
+              </span>
+              <span className="text-[10px] text-slate-500 font-semibold tracking-wider uppercase mt-1">
                 Name of Quality Education • Est. 2020
-              </p>
+              </span>
             </div>
           </div>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-1">
+          {/* Desktop Navigation with Proper Padding */}
+          <nav className="hidden lg:flex items-center space-x-0.5 xl:space-x-1 flex-shrink-0">
             {navItems.map((item) => (
               <div 
                 key={item.id}
@@ -150,14 +150,14 @@ export default function Navbar({ activeView, setActiveView, onOpenSearch, onOpen
               >
                 <button
                   onClick={() => handleNavClick(item.id)}
-                  className={`px-3 py-2 rounded-lg text-sm font-semibold transition flex items-center space-x-1 ${
+                  className={`px-2.5 xl:px-3 py-2 rounded-lg text-xs xl:text-sm font-semibold transition flex items-center space-x-1 ${
                     activeView.startsWith(item.id) 
                       ? 'text-amber-800 bg-amber-50 font-bold' 
                       : 'text-slate-700 hover:text-slate-950 hover:bg-slate-100'
                   }`}
                 >
                   <span>{item.label}</span>
-                  {item.subitems && <ChevronDown className="w-3.5 h-3.5 opacity-70 group-hover:rotate-180 transition-transform" />}
+                  {item.subitems && <ChevronDown className="w-3 h-3 opacity-70 group-hover:rotate-180 transition-transform" />}
                 </button>
 
                 {/* Submenu Dropdown */}
@@ -180,17 +180,19 @@ export default function Navbar({ activeView, setActiveView, onOpenSearch, onOpen
             ))}
           </nav>
 
-          {/* Action CTAs */}
-          <div className="hidden sm:flex items-center space-x-3">
-            <button
-              onClick={onOpenDonate}
-              className="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-bold rounded-xl group bg-gradient-to-br from-amber-500 to-amber-600 text-white shadow-md shadow-amber-500/20 hover:scale-105 active:scale-95 transition-all duration-200"
+          {/* Action CTAs - Transfers to WhatsApp */}
+          <div className="hidden sm:flex items-center space-x-3 flex-shrink-0">
+            <a
+              href={getWhatsAppDonationLink("Child Education")}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-xs xl:text-sm font-bold rounded-xl group bg-gradient-to-br from-amber-500 to-amber-600 text-white shadow-md shadow-amber-500/20 hover:scale-105 active:scale-95 transition-all duration-200"
             >
-              <span className="relative px-4 py-2 transition-all ease-in duration-75 bg-amber-500 text-white rounded-[10px] group-hover:bg-amber-600 font-bold flex items-center space-x-2">
+              <span className="relative px-3.5 xl:px-4 py-2 transition-all ease-in duration-75 bg-amber-500 text-white rounded-[10px] group-hover:bg-amber-600 font-bold flex items-center space-x-2">
                 <Heart className="w-4 h-4 fill-white text-white" />
                 <span>Donate for Child Ed</span>
               </span>
-            </button>
+            </a>
           </div>
 
           {/* Mobile Menu Button */}
@@ -238,13 +240,15 @@ export default function Navbar({ activeView, setActiveView, onOpenSearch, onOpen
               </div>
             ))}
             <div className="pt-4">
-              <button
-                onClick={() => { setMobileMenuOpen(false); onOpenDonate(); }}
-                className="w-full py-3 bg-amber-500 text-white font-bold rounded-xl shadow-md flex justify-center items-center space-x-2"
+              <a
+                href={getWhatsAppDonationLink("Child Education")}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full py-3 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-xl shadow-md flex justify-center items-center space-x-2"
               >
                 <Heart className="w-4 h-4 fill-white text-white" />
-                <span>Donate for Child Education</span>
-              </button>
+                <span>Donate for Child Education (WhatsApp)</span>
+              </a>
             </div>
           </div>
         )}
